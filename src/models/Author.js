@@ -15,8 +15,8 @@ const authorSchema = new Schema({
     },
     avatar: String,
     createdAt:{
-        type: Date,
-        default: Date.now
+        type: String,
+        default: new Date().toISOString()
     }
 });
 
