@@ -32,4 +32,4 @@ const poemSchema = new Schema({
 });
 
 
-module.exports = model('Poem', poemSchema);
+module.exports = model('Writing', poemSchema);
