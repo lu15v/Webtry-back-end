@@ -92,5 +92,15 @@ module.exports = {
         id: res._id,
       };
     },
+    async updateViews(_, {writingId}){
+        try{
+            const writing = await Writing.findById(writingId);
+            writing.views += 1;
+            writing.save();
+            return writing.views
+        }catch(err){
+            throw new Error(err);
+        }
+    }
   },
 };

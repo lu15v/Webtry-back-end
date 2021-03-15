@@ -25,9 +25,11 @@ module.exports = gql`
   type Writing {
     id: ID!
     title: String!
+    body: String!
     compilation: String!
     type: String!
     author: String!
+    views: Int!
     createdAt: String!
   }
   type Query {
@@ -39,5 +41,6 @@ module.exports = gql`
   type Mutation {
     createAuthor(authorInput: AuthorInput): Author!
     createWriting(writingInput: WritingInput): Writing!
+    updateViews(writingId: ID!): Int
   }
 `;
