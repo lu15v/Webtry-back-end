@@ -8,12 +8,33 @@ module.exports = {
   Query: {
     async getWritings() {
       try {
-        const writings = Writing.find().sort({ createdAt: -1 });
+        const writings = await Writing.find().sort({ createdAt: -1 });
         return writings;
       } catch (err) {
         throw new Error(err);
       }
     },
+    async getWritingsByAuthor(_, {username}){
+        try{
+            const author = await Author.findOne({username});
+            if(!author){
+                throw new UserInputError(
+                    'username not registered, please check and try again later',
+                    {
+                      errors: {
+                        author: "Author not found",
+                      },
+                    }
+                  );
+            }
+            
+            const writings = await Writing.find({author: author._id});
+
+            return writings;
+        }catch(err){
+            throw new Error(err);
+        }
+    }
   },
   Mutation: {
     async createWriting(
