@@ -31,7 +31,7 @@ module.exports = gql`
   }
   type Query {
     getAuthors: [Author]
-    getAllWritings: [Writing]
+    getWritings: [Writing]
     getWritingsByAuthor(username: String!): [Writing]
   }
   type Mutation {

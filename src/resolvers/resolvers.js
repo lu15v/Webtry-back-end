@@ -3,7 +3,8 @@ const writingResolvers = require('./writings');
 
 module.exports = {
     Query:{
-        ...authorResolvers.Query
+        ...authorResolvers.Query,
+        ...writingResolvers.Query
     },
     Mutation:{
         ...authorResolvers.Mutation,
