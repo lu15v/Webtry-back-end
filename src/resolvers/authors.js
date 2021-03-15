@@ -29,6 +29,7 @@ module.exports = {
             });
 
             const res = await newAuthor.save();
+            
             return {
                 ...res._doc,
                 id: res._id

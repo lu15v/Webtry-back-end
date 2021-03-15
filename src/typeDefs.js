@@ -1,24 +1,39 @@
 const gql = require("graphql-tag");
 
 module.exports = gql`
-  input AuthorInput{
-      username: String!
-      avatar: String
-      firstName: String!
-      surname: String!
+  input AuthorInput {
+    username: String!
+    avatar: String
+    firstName: String!
+    surname: String!
   }
-  type Author{
-      id: ID!
-      username: String!
-      firstName: String!
-      surname: String!
-      avatar: String!
-      createdAt: String!
+  input WritingInput {
+    title: String!
+    compilation: String
+    type: String
+    username: String
   }
-  type Query{
-      sayHi:String!
+  type Author {
+    id: ID!
+    username: String!
+    firstName: String!
+    surname: String!
+    avatar: String!
+    createdAt: String!
+  }
+  type Writing {
+    id: ID!
+    title: String!
+    compilation: String!
+    type: String!
+    author: String!
+    createdAt: String!
+  }
+  type Query {
+    sayHi: String!
   }
   type Mutation {
-      createAuthor(authorInput: AuthorInput): Author
+    createAuthor(authorInput: AuthorInput): Author!
+    createWriting(writingInput: WritingInput): Writing!
   }
 `;

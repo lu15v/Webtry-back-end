@@ -1,17 +1,17 @@
 const {model, Schema} = require('mongoose');
 
-const poemSchema = new Schema({
+const writingSchema = new Schema({
     title:{
         type: String,
         required: true
     },
-    collection:{
+    compilation:{
         type: String,
         default: 'Default'
     },
-    author:{
+    type:{
         type: String,
-        default: 'Anonymous'
+        default: 'Unknown'
     },
     createdAt:{
         type: Date,
@@ -32,4 +32,4 @@ const poemSchema = new Schema({
 });
 
 
-module.exports = model('Writing', poemSchema);
+module.exports = model('Writing', writingSchema);
