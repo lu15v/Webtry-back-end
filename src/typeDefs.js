@@ -9,6 +9,7 @@ module.exports = gql`
   }
   input WritingInput {
     title: String!
+    body: String!
     compilation: String
     type: String
     username: String

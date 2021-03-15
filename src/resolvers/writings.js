@@ -48,12 +48,12 @@ module.exports = {
   Mutation: {
     async createWriting(
       _,
-      { writingInput: { title, collection, type, username } }
+      { writingInput: { title, body, collection, type, username } }
     ) {
       const writing = await Writing.findOne({ title });
       const author = await Author.findOne({ username });
 
-      const { valid, errors } = validateNotEmptyInput({ title, username });
+      const { valid, errors } = validateNotEmptyInput({ title, username, body });
 
       if (!valid) {
         throw new UserInputError("Errors", { errors });
@@ -80,6 +80,7 @@ module.exports = {
 
       const newWriting = new Writing({
         title,
+        body,
         collection,
         type,
         author: author.id,

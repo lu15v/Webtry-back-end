@@ -5,6 +5,10 @@ const writingSchema = new Schema({
         type: String,
         required: true
     },
+    body:{
+        type: String,
+        required: true
+    },
     compilation:{
         type: String,
         default: 'Default'
