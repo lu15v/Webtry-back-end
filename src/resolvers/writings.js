@@ -34,6 +34,15 @@ module.exports = {
         }catch(err){
             throw new Error(err);
         }
+    },
+    async getWritingsByCompilation(_, {compilation}){
+        try{            
+            const writings = await Writing.find({compilation});
+
+            return writings;
+        }catch(err){
+            throw new Error(err);
+        }
     }
   },
   Mutation: {

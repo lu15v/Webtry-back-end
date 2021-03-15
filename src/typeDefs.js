@@ -33,6 +33,7 @@ module.exports = gql`
     getAuthors: [Author]
     getWritings: [Writing]
     getWritingsByAuthor(username: String!): [Writing]
+    getWritingsByCompilation(compilation: String!): [Writing]
   }
   type Mutation {
     createAuthor(authorInput: AuthorInput): Author!
