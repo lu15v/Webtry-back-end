@@ -4,6 +4,16 @@ const Author = require('../models/Author');
 const {validateNotEmptyInput} = require('../utils/validators');
 
 module.exports = {
+    Query:{
+        async getAuthors(){
+            try{
+                const authors = await Author.find().sort({createdAt: -1});
+                return authors;
+            }catch(err){
+                 throw new Error(err);
+            }
+        }
+    },
     Mutation:{
         async createAuthor(_, {authorInput: {username, firstName, surname, avatar}}){
             const author = await Author.findOne({username});
@@ -29,7 +39,7 @@ module.exports = {
             });
 
             const res = await newAuthor.save();
-            
+
             return {
                 ...res._doc,
                 id: res._id

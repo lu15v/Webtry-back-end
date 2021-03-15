@@ -30,7 +30,9 @@ module.exports = gql`
     createdAt: String!
   }
   type Query {
-    sayHi: String!
+    getAuthors: [Author]
+    getAllWritings: [Writing]
+    getWritingsByAuthor(username: String!): [Writing]
   }
   type Mutation {
     createAuthor(authorInput: AuthorInput): Author!

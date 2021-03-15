@@ -3,7 +3,7 @@ const writingResolvers = require('./writings');
 
 module.exports = {
     Query:{
-        sayHi:  () => 'Hello World'
+        ...authorResolvers.Query
     },
     Mutation:{
         ...authorResolvers.Mutation,
