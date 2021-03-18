@@ -12,6 +12,18 @@ module.exports = {
             }catch(err){
                  throw new Error(err);
             }
+        },
+        async getAuthorById(_, {authorId}){
+            const author = await Author.findById(authorId);
+
+            if(author){
+                return author;
+            }
+            throw new UserInputError('Author not found', {
+                errors:{
+                    author: 'The author with the specified Id, does not exist'
+                }
+            })
         }
     },
     Mutation:{

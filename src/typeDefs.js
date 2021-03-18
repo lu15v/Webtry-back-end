@@ -35,6 +35,7 @@ module.exports = gql`
   type Query {
     getAuthors: [Author]
     getWritings: [Writing]
+    getAuthorById(authorId: ID!): Author
     getWritingsByAuthor(username: String!): [Writing]
     getWritingsByCompilation(compilation: String!): [Writing]
   }
