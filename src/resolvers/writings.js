@@ -8,7 +8,7 @@ module.exports = {
   Query: {
     async getWritings() {
       try {
-        const writings = await Writing.find().sort({ createdAt: -1 });
+        const writings = await Writing.find().sort({ createdAt: -1 }).populate("author");
         return writings;
       } catch (err) {
         throw new Error(err);
@@ -16,7 +16,7 @@ module.exports = {
     },
     async getWritingsByAuthor(_, { username }) {
       try {
-        const author = await Author.findOne({ username });
+        const author = await Author.findById(username);
         if (!author) {
           throw new UserInputError(
             "username not registered, please check and try again later",
@@ -28,8 +28,8 @@ module.exports = {
           );
         }
 
-        const writings = await Writing.find({ author: author._id });
-
+        const writings = await Writing.find({ author: author._id }).populate("author");
+        
         return writings;
       } catch (err) {
         throw new Error(err);
@@ -37,7 +37,7 @@ module.exports = {
     },
     async getWritingsByCompilation(_, { compilation }) {
       try {
-        const writings = await Writing.find({ compilation });
+        const writings = await Writing.find({ compilation }).populate("author");
 
         return writings;
       } catch (err) {
@@ -46,7 +46,7 @@ module.exports = {
     },
     async getWritingById(_, { writingId }) {
       try {
-        const writing = await Writing.findById(writingId);
+        const writing = await Writing.findById(writingId).populate("author");
 
         if (writing) {
           return writing;

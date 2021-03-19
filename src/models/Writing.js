@@ -31,7 +31,7 @@ const writingSchema = new Schema({
     ],
     author: {
         type: Schema.Types.ObjectId,
-        ref: 'Authors'
+        ref: 'Author'
     },
     views: {
         type: Number,

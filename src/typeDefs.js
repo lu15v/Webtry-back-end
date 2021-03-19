@@ -28,7 +28,7 @@ module.exports = gql`
     body: String!
     compilation: String!
     type: String!
-    author: String!
+    author: Author
     views: Int!
     createdAt: String!
   }
