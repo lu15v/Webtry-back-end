@@ -36,6 +36,7 @@ module.exports = gql`
     getAuthors: [Author]
     getWritings: [Writing]
     getAuthorById(authorId: ID!): Author
+    getWritingById(writingId: ID!): Writing
     getWritingsByAuthor(username: String!): [Writing]
     getWritingsByCompilation(compilation: String!): [Writing]
   }

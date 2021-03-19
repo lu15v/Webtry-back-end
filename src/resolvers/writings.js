@@ -14,36 +14,53 @@ module.exports = {
         throw new Error(err);
       }
     },
-    async getWritingsByAuthor(_, {username}){
-        try{
-            const author = await Author.findOne({username});
-            if(!author){
-                throw new UserInputError(
-                    'username not registered, please check and try again later',
-                    {
-                      errors: {
-                        author: "Author not found",
-                      },
-                    }
-                  );
+    async getWritingsByAuthor(_, { username }) {
+      try {
+        const author = await Author.findOne({ username });
+        if (!author) {
+          throw new UserInputError(
+            "username not registered, please check and try again later",
+            {
+              errors: {
+                author: "Author not found",
+              },
             }
-            
-            const writings = await Writing.find({author: author._id});
-
-            return writings;
-        }catch(err){
-            throw new Error(err);
+          );
         }
+
+        const writings = await Writing.find({ author: author._id });
+
+        return writings;
+      } catch (err) {
+        throw new Error(err);
+      }
     },
-    async getWritingsByCompilation(_, {compilation}){
-        try{            
-            const writings = await Writing.find({compilation});
+    async getWritingsByCompilation(_, { compilation }) {
+      try {
+        const writings = await Writing.find({ compilation });
 
-            return writings;
-        }catch(err){
-            throw new Error(err);
+        return writings;
+      } catch (err) {
+        throw new Error(err);
+      }
+    },
+    async getWritingById(_, { writingId }) {
+      try {
+        const writing = await Writing.findById(writingId);
+
+        if (writing) {
+          return writing;
         }
-    }
+
+        throw new UserInputError("Writing not registered", {
+          errors: {
+            writing: `Writing with the ID: ${writingId} was not found, check and try again`,
+          },
+        });
+      } catch (err) {
+        throw new Error(err);
+      }
+    },
   },
   Mutation: {
     async createWriting(
@@ -53,7 +70,11 @@ module.exports = {
       const writing = await Writing.findOne({ title });
       const author = await Author.findOne({ username });
 
-      const { valid, errors } = validateNotEmptyInput({ title, username, body });
+      const { valid, errors } = validateNotEmptyInput({
+        title,
+        username,
+        body,
+      });
 
       if (!valid) {
         throw new UserInputError("Errors", { errors });
@@ -92,15 +113,15 @@ module.exports = {
         id: res._id,
       };
     },
-    async updateViews(_, {writingId}){
-        try{
-            const writing = await Writing.findById(writingId);
-            writing.views += 1;
-            writing.save();
-            return writing.views
-        }catch(err){
-            throw new Error(err);
-        }
-    }
+    async updateViews(_, { writingId }) {
+      try {
+        const writing = await Writing.findById(writingId);
+        writing.views += 1;
+        writing.save();
+        return writing.views;
+      } catch (err) {
+        throw new Error(err);
+      }
+    },
   },
 };
