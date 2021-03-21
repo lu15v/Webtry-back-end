@@ -2,7 +2,7 @@ const { UserInputError } = require("apollo-server");
 
 const Writing = require("../models/Writing");
 const Author = require("../models/Author");
-const { validateNotEmptyInput } = require("../utils/validators");
+const { validateInput } = require("../utils/validators");
 
 module.exports = {
   Query: {
@@ -70,7 +70,7 @@ module.exports = {
       const writing = await Writing.findOne({ title });
       const author = await Author.findOne({ username });
 
-      const { valid, errors } = validateNotEmptyInput({
+      const { valid, errors } = validateInput({
         title,
         username,
         body,

@@ -43,6 +43,36 @@ module.exports = {
     },
   },
   Mutation: {
+    async login(_, {username, password}) {
+      const author = await Author.findOne({ username });
+      let errors = {};
+    
+      if (!author) {
+        errors.general = "Bad credentials";
+        throw new UserInputError("Bad credentials", {
+          errors: {
+            general: "Bad credentials, please login again",
+          },
+        });
+      }
+      const match = await bcrypt.compare(password, author.password);
+
+      if (!match) {
+        errors.general = "Bad credentials";
+        throw new UserInputError("Bad credentials", {
+          errors: {
+            general: "Bad credentials, please login again author",
+          },
+        });
+      }
+      const token = generateToken(author);
+
+      return {
+        ...author._doc,
+        id: author._id,
+        token,
+      };
+    },
     async register(
       _,
       {
@@ -53,12 +83,12 @@ module.exports = {
           password,
           confirmPassword,
           email,
-          avatar
+          avatar,
         },
       }
     ) {
-      const author = await Author.findOne({username});
-      
+      const author = await Author.findOne({ username });
+
       if (author) {
         throw new UserInputError("Username is taken", {
           errors: {
@@ -73,7 +103,7 @@ module.exports = {
         surname,
         email,
         password,
-        confirmPassword
+        confirmPassword,
       });
 
       if (!valid) {
@@ -81,8 +111,8 @@ module.exports = {
       }
 
       password = await bcrypt.hash(password, 12);
-      
-      avatar = avatar || '';
+
+      avatar = avatar || "";
 
       const newAuthor = new Author({
         username,

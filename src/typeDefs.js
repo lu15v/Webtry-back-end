@@ -54,5 +54,6 @@ module.exports = gql`
     createWriting(writingInput: WritingInput): Writing!
     updateViews(writingId: ID!): Int
     register(registerInput: RegisterInput!): Author!
+    login(username: String!, password: String!): Author!
   }
 `;
