@@ -13,6 +13,7 @@ module.exports = gql`
     compilation: String
     type: String
     username: String
+    createdAt: String
   }
   input RegisterInput{
     username: String!

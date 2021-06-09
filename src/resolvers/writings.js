@@ -65,7 +65,7 @@ module.exports = {
   Mutation: {
     async createWriting(
       _,
-      { writingInput: { title, body, collection, type, username } }
+      { writingInput: { title, body, compilation, type, username, createdAt } }
     ) {
       const writing = await Writing.findOne({ title });
       const author = await Author.findOne({ username });
@@ -102,9 +102,10 @@ module.exports = {
       const newWriting = new Writing({
         title,
         body,
-        collection,
+        compilation,
         type,
         author: author.id,
+        createdAt: createdAt ? new Date(createdAt).toISOString() : new Date().toISOString()
       });
 
       const res = await newWriting.save();
