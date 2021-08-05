@@ -5,7 +5,7 @@ const typeDefs = require('./typeDefs');
 const resolvers = require('./resolvers/resolvers');
 const {MONGODB} =require('../config');
 
-const __PORT__ = 5000;
+const __PORT__ = process.env.port || 5000;
 
 const server = new ApolloServer({
     typeDefs,
