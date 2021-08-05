@@ -11,7 +11,7 @@
     "mongoose": "^5.11.19"
   },
   "scripts": {
-    "start": "yarn run src/index.js",
+    "start": "node src/index.js",
     "start-dev": "nodemon --watch src src/index.js"
   },
   "devDependencies": {
