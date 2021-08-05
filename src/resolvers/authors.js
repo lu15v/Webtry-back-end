@@ -4,7 +4,6 @@ const Author = require("../models/Author");
 const { validateInput } = require("../utils/validators");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { SECRET_KEY } = require("../../config");
 
 const generateToken = (user) => {
   return jwt.sign(
@@ -14,7 +13,7 @@ const generateToken = (user) => {
       username: user.username,
       avatar: user.avatar,
     },
-    SECRET_KEY,
+    process.env.SECRET_KEY,
     { expiresIn: "1h" }
   );
 };

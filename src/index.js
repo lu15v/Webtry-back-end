@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 
 const typeDefs = require('./typeDefs');
 const resolvers = require('./resolvers/resolvers');
-const {MONGODB} =require('../config');
 
 const __PORT__ = process.env.port || 5000;
 
@@ -13,7 +12,7 @@ const server = new ApolloServer({
 });
 
 mongoose
-.connect(MONGODB, {useNewUrlParser: true, useUnifiedTopology: true})
+.connect(process.env.MONGODB, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() =>{
     return server.listen({port: __PORT__});
 })
